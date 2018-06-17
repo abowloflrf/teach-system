@@ -11,6 +11,12 @@ class SrtpController extends Controller
     // 下面为学生使用的方法
     public function create(Request $request)
     {
+        $srtp = SrtpProject::where('leader_id', Auth::user()->id)->get();
+        if (count($srtp) > 0)
+            return array(
+            "status" => "ERROR",
+            "msg" => "您已经有SRTP项目了，请勿重复创建"
+        );
         $res = SrtpProject::create([
             'title' => $request->title,
             'leader_id' => Auth::user()->id,
@@ -44,7 +50,7 @@ class SrtpController extends Controller
     public function updateMySrtp(Request $request)
     {
         //获取请求操作码
-        $op = $request->operation;
+        $op = intval($request->operation);
         //获取请求用户（学生）的所属srtp项目
         $srtp = Auth::user()->getSrtp();
         if ($op == 101) {
@@ -115,8 +121,10 @@ class SrtpController extends Controller
 
     public function updateSrtp(Request $request, $id)
     {
-        $op = $request->operation;
+        $op = intval($request->operation);
         $srtp = SrtpProject::find($id);
+        if (!$srtp)
+            return response("SRTP Not Found", 404);
         if ($op == 201) {
             //通过创建申请
             $srtp->level = $request->new_level;

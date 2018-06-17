@@ -12,6 +12,12 @@ class GraduationController extends Controller
     //学生创建毕业项目
     public function create(Request $request)
     {
+        $gra = GraProject::where('student_id', Auth::user()->id)->get();
+        if (count($gra) > 0)
+            return array(
+            "status" => "ERROR",
+            "msg" => "您已经有毕业项目了，请勿重复创建"
+        );
         $res = GraProject::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -56,7 +62,7 @@ class GraduationController extends Controller
     //学生更新自己的毕业项目
     public function updateMine(Request $request)
     {
-        $op = $request->operation;
+        $op = intval($request->operation);
         $graduation = Auth::user()->getGraduation();
         if ($op == 101) {
             //提交选题报告
@@ -115,7 +121,7 @@ class GraduationController extends Controller
     //教师更新单条毕业项目
     public function updateOne(Request $request, $id)
     {
-        $op = $request->operation;
+        $op = intval($request->operation);
         $graduation = GraProject::find($id);
         if ($op == 201) {
             //通过创建申请，并发布任务书

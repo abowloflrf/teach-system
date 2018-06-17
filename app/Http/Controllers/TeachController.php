@@ -62,7 +62,7 @@ class TeachController extends Controller
     public function updateMyOne(Request $request, $id)
     {
         //获取请求操作码
-        $op = $request->operation;
+        $op = intval($request->operation);
         $teach = TeachProject::find($id);
         if ($teach->owner->id != Auth::user()->id)
             return response("Operation Forbiddon", 403);
@@ -123,7 +123,7 @@ class TeachController extends Controller
     //秘书更新某条教改项目
     public function updateOne(Request $request, $id)
     {
-        $op = $request->operation;
+        $op = intval($request->operation);
         $teach = TeachProject::find($id);
         if ($op == 201) {
             //通过创建申请
