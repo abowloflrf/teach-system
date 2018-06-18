@@ -42,9 +42,27 @@ class SrtpController extends Controller
 
     public function getMySrtp()
     {
-        return response()->json(
-            Auth::user()->getSrtp()
-        );
+        $res = array();
+        $item = Auth::user()->getSrtp();
+        if (!$item)
+            return response()->json('{}');
+        else {
+            $res['id'] = $item['id'];
+            $res['title'] = $item['title'];
+            $res['year'] = $item['year'];
+            $res['level'] = $item['level'];
+            $res['status'] = $item['status'];
+            $res['leader'] = $item->leader->name;
+            $res['teacher'] = $item->teacher->name;
+            $res['description'] = $item['description'];
+            $res['members'] = $item['members'];
+            $res['apply_file'] = $item['apply_file'];
+            $res['middle_file'] = $item['middle_file'];
+            $res['end_file'] = $item['end_file'];
+            $res['postpond_file'] = $item['postpond_file'];
+            $res['abort_file'] = $item['abort_file'];
+            return $res;
+        }
     }
 
     public function updateMySrtp(Request $request)
