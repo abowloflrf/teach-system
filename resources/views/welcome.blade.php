@@ -8,7 +8,7 @@
     <title>教学管理</title>
     <link as=style href=/css/app.985efd84.css rel=preload>
     <link as=style href=/css/chunk-vendors.a6fa1a74.css rel=preload>
-    <link as=script href=/js/app.199ac7bf.js rel=preload>
+    <link as=script href=/js/app.c792c7a5.js rel=preload>
     <link as=script href=/js/chunk-vendors.a51aa4ee.js rel=preload>
     <link href=/css/chunk-vendors.a6fa1a74.css rel=stylesheet>
     <link href=/css/app.985efd84.css rel=stylesheet>
@@ -20,7 +20,7 @@
     </noscript>
     <div id=app></div>
     <script src=/js/chunk-vendors.a51aa4ee.js></script>
-    <script src=/js/app.199ac7bf.js></script>
+    <script src=/js/app.c792c7a5.js></script>
 </body>
 
 </html>

@@ -29,12 +29,28 @@ Route::post('download', 'UploadController@download');
 
 //获取所有教师列表
 Route::get('teachers', function () {
-    return App\User::all()->where('role', 2);
+    $res = array();
+    $list = App\User::all()->where('role', 2);
+    foreach ($list as $l) {
+        $res[] = array(
+            'id' => $l->id,
+            'name' => $l->name
+        );
+    }
+    return response()->json($res);
 });
 
 //获取所有学生列表
 Route::get('students', function () {
-    return App\User::all()->where('role', 1);
+    $res = array();
+    $list = App\User::all()->where('role', 1);
+    foreach ($list as $l) {
+        $res[] = array(
+            'id' => $l->id,
+            'name' => $l->name
+        );
+    }
+    return response()->json($res);
 });
 
 Route::prefix('student')->middleware('allow.student')->group(function () {
