@@ -11,7 +11,7 @@ class UploadController extends Controller
     {
         $filename = auth()->user()->name . '-' . auth()->user()->id . '-' . $request->file('file')->getClientOriginalName();
         $path = $request->file('file')->storeAs(
-            'upload',
+            'public',
             $filename
         );
         return array(
@@ -22,9 +22,9 @@ class UploadController extends Controller
 
     public function download(Request $request)
     {
-        if (Storage::exists($request->key))
+        if (Storage::exists($request->key)) {
             return Storage::download($request->key);
-        else
+        } else
             return response()->json(['msg' => 'File not found'], 404);
     }
 }
