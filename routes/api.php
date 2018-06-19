@@ -22,7 +22,7 @@ Route::prefix('auth')->group(function () {
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
-    Route::post('register',"AuthController@register");
+    Route::post('register', "AuthController@register");
 });
 
 Route::post('upload', 'UploadController@upload');
@@ -59,6 +59,7 @@ Route::prefix('student')->middleware('allow.student')->group(function () {
     Route::post('srtp', 'SrtpController@create');                           //创建SRTP项目
     Route::get('srtp', 'SrtpController@getMySrtp');                         //获取自己的SRTP项目
     Route::patch('srtp/update', 'SrtpController@updateMySrtp');             //更新自己的SRTP项目状态
+    Route::patch('srtp/update-file', 'SrtpController@updateMyFile');        //更新项目材料
     //毕业
     Route::post('graduation', 'GraduationController@create');               //创建毕业项目
     Route::get('graduation', 'GraduationController@getMine');               //获取自己的毕业项目

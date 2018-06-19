@@ -45,7 +45,7 @@ class SrtpController extends Controller
         $res = array();
         $item = Auth::user()->getSrtp();
         if (!$item)
-            return response()->json('{}');
+            return response()->json(null);
         else {
             $res['id'] = $item['id'];
             $res['title'] = $item['title'];
@@ -110,6 +110,30 @@ class SrtpController extends Controller
         } else {
             return response("Invaild Operation", 403);
         }
+    }
+
+    public function updateMyFile(Request $request)
+    {
+        $srtp = Auth::user()->getSrtp();
+        $type = $request->type;
+        $file = $request->file;
+        if ($type == 1)
+            $srtp->apply_file = $file;
+        elseif ($type == 2)
+            $srtp->middle_file = $file;
+        elseif ($type == 3)
+            $srtp->end_file = $file;
+
+        if ($srtp->save())
+            return response()->json([
+            'status' => 'OK',
+            'msg' => '成功更新材料'
+        ]);
+        else
+            return response()->json([
+            'status' => 'ERROR',
+            'msg' => '更新出错'
+        ]);
     }
 
     // 下面为秘书使用的方法
